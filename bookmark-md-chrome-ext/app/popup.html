@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css styles/main.css -->
+	<link rel="stylesheet" href="styles/bootstrap.css">
+        <link href="styles/main.css" rel="stylesheet">
+        <!-- endbuild -->
+    </head>
+    <body>
+	  <div id="header-container" class="row">
+		  <div class="col-md-12">
+			<h1>BookmarkMd</h1>
+		  </div>
+	  </div>
+
+	<div id="form-container">
+		<input id="txtTitle" maxlength="50" type="text" placeholder="Title">
+		<br />
+		<input id="txtUrl" maxlength="200" type="text" placeholder="URL">
+		<br />
+		<input id="txtTags" maxlength="100" type="text" placeholder="Tags (Optional)">
+		<br />
+		<input id="txtCategory" maxlength="25" type="text" placeholder="Category (Optional)">
+		<br />
+		<button id="btnSave" class="btn btn-primary" data-saving-text="Saving..." data-complete-text="Done" autocomplete="off">Save Bookmark</button>
+		<i class="glyphicon glyphicon-info-sign" data-toggle="popover" title="Things to Note" data-placement="top" data-content="Tags should be comma delimited. Supplying a Category will save to a markdow file with the same name."></i>
+	</div>
+	<div id="footer-container">
+		<p id="errorMessage">
+	</div>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/popup.js -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="scripts/bootstrap.js"></script>
+	<script src="scripts/lib/dropbox.min.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/dropbox-client.js"></script>
+        <script src="scripts/popup.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
