@@ -11,3 +11,6 @@ package
 *.swp
 *~
 *.vim
+
+#Key file
+app/scripts/keys.js
