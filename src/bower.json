@@ -1,0 +1,8 @@
+{
+  "name": "markit",
+  "version": "0.0.0",
+  "dependencies": {
+    "materialize": "~0.95.2"
+  },
+  "devDependencies": {}
+}
