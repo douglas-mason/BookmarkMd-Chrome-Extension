@@ -4,12 +4,15 @@
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
+      "16": "images/icon-16.png",
+      "128": "images/icon-128.png"
   },
   "default_locale": "en",
   "background": {
     "scripts": [
+      "scripts/lib/dropbox.min.js",
+      "scripts/app.js",
+      "scripts/dropbox-client.js",
       "scripts/chromereload.js",
       "scripts/background.js"
     ]
@@ -23,8 +26,13 @@
     "default_popup": "popup.html"
   },
   "permissions": [
+    "https://www.dropbox.com/1/oauth/authorize*",
+    "storage",
     "tabs",
     "http://*/*",
     "https://*/*"
-  ]
+  ],
+  "options_page": "options.html",
+  "web_accessible_resources": [
+      "chrome_oauth_receiver.html"
 }

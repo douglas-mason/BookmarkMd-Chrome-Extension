@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css styles/main.css -->
+        <link href="styles/main.css" rel="stylesheet">
+	<link href="styles/bootstrap.css" rel="stylesheet">
+        <!-- endbuild -->
+    </head>
+    <body>
+	<div id="header-container">
+		<div class="row">
+			<div class="col-md-6">
+	    			<h1>BookmarkMd Options:</h1>
+			</div>
+			<div class="col-md-6">
+	    			<image src="images/icon-128.png"></image>
+			</div>
+		</div>
+	</div>
+	<div id="options-container">
+		<button id="btnLogout" class="btn btn-primary">Logout of DropBox</button>
+	</div>
+	<div id="message-container">
+		<p id="errorMessage"></p>
+	</div>
+                
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js scripts/options.js -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="scripts/bootstrap.js"></script>
+	<script src="scripts/lib/dropbox.min.js"></script>
+	<script src="scripts/app.js"></script>
+	<script src="scripts/dropbox-client.js"></script>
+        <script src="scripts/options.js"></script>
+        <!-- endbuild -->
+    </body>
+</html>
