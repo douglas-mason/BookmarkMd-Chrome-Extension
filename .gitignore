@@ -3,3 +3,8 @@
 # Example .gitignore files: https://github.com/github/gitignore
 /bower_components/
 /node_modules/
+
+#VIM
+*.swp
+*.vim
+*~
