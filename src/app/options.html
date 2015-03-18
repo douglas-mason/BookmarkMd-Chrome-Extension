@@ -2,12 +2,10 @@
 <html>
     <head>
         <!-- build:css styles/vendor.css -->
-        <!-- bower:css -->
-        <!-- endbower -->
+            <link href="./bower_components/materialize/dist/css/materialize.css" rel="stylesheet">
         <!-- endbuild -->
-        <!-- build:css styles/main.css -->
-        <link href="styles/main.css" rel="stylesheet">
-	<link href="styles/bootstrap.css" rel="stylesheet">
+        <!-- build:css styles/options.css -->
+            <link href="./styles/main.css" rel="stylesheet">
         <!-- endbuild -->
     </head>
     <body>
@@ -28,18 +26,15 @@
 		<p id="errorMessage"></p>
 	</div>
                 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <!-- endbower -->
+        <!-- build:js scripts/options-vendor.js -->
+            <script src="./bower_components/jquery/dist/jquery.js"></script>
+            <script src="./vendor/dropbox/dropbox.min.js"></script>
         <!-- endbuild -->
 
-        <!-- build:js scripts/options.js -->
-	<script src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="scripts/bootstrap.js"></script>
-	<script src="scripts/lib/dropbox.min.js"></script>
-	<script src="scripts/app.js"></script>
-	<script src="scripts/dropbox-client.js"></script>
-        <script src="scripts/options.js"></script>
+        <!-- build:js(dist) scripts/options.js -->
+            <script src="./scripts/app.js"></script>
+            <script src="./scripts/dropbox-client.js"></script>
+            <script src="./scripts/options.js"></script>
         <!-- endbuild -->
     </body>
 </html>

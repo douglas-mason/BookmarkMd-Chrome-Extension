@@ -3,23 +3,81 @@
   <head>
     <meta charset="utf-8">
     <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
+        <link href="./bower_components/materialize/dist/css/materialize.css" rel="stylesheet">
     <!-- endbuild -->
-    <!-- build:css styles/main.css -->
-    <link href="styles/main.css" rel="stylesheet">
+    <!-- build:css styles/style.css -->
+        <link href="./styles/main.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
   <body>
-    <h1>'Allo, 'Allo!</h1>
+      <div class="container">
+	  <div id="header-container" class="row">
+		  <div class="col s12">
+			<h3>BookmarkMarkdown</h1>
+		  </div>
+                  <select id="ddlCategories" name="Categories"></select>
+                  <a href="bookmarks.html">bookmarks</a>
+	  </div>
+	<div id="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtTitle" maxlength="50" type="text">
+                        <label for="txtTitle">Title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtUrl" maxlength="200" type="text">
+                        <label for="txtUrl">URL</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtTags" maxlength="100" type="text">
+                        <label for="txtTags">Tags (Optional)</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="txtCategory" maxlength="25" type="text">
+                        <label for="txtCategory">Category (Optional)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button id="btnSave" class="waves-effect waves-light btn blue accent-2" 
+                        data-saving-text="Saving..." data-complete-text="Done" 
+                        autocomplete="off">Save Bookmark
+                    </button>
+                    <i class="glyphicon glyphicon-info-sign" data-toggle="popover" 
+                        title="Things to Note" data-placement="top" 
+                        data-content="Tags should be comma delimited. Supplying a Category will save to a markdow file with the same name.">
+                    </i>
+                </div>
+            </div>
+	</div>
+	<div id="footer-container">
+            <div id="alert-container" class="alert alert-danger alert-dismissable hide" role="alert">
+                <button id="btnCloseAlert" type="button" class="close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            <strong>Error:</strong>&nbsp; <p id="errorMessage">
+            </div>
+	</div>
+      </div>
 
     <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
+        <script src="./bower_components/jquery/dist/jquery.js"></script>
+	<script src="./vendor/dropbox/dropbox.min.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js scripts/popup.js -->
-    <script src="scripts/popup.js"></script>
+    <!-- build:js(dist) scripts/popup.js -->
+	<script src="./scripts/app.js"></script>
+	<script src="./scripts/dropbox-client.js"></script>
+        <script src="./scripts/popup_script.js"></script>
     <!-- endbuild -->
   </body>
 </html>

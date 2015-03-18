@@ -21,6 +21,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  require('matchdep').filterAll(['grunt-*', '!grunt-cli']).forEach(grunt.loadNpmTasks);
+
   grunt.initConfig({
 
     // Project settings
@@ -61,19 +63,23 @@ module.exports = function (grunt) {
         ]
       },
       coffee: {
-          files: "<%= config.app %>/coffee/**/*.coffee",
-          tasks: ["coffee"]
+          files: '<%= config.app %>/coffee/**/*.coffee',
+          tasks: ['coffee']
+      },
+      less: {
+          files: '<%= config.app %>/styles/**/*.less',
+          tasks: ['less']
       },
     },
 
     // compile CoffeeScript files
     coffee: {
-        "default": {
+        'default': {
             expand: true,
-            cwd: "<%= config.app %>/coffee",
-            src: "**/*.coffee",
-            dest: "<%= config.dist %>/scripts",
-            ext: ".js"
+            cwd: '<%= config.app %>/coffee',
+            src: '**/*.coffee',
+            dest: '<%= config.dist %>/scripts',
+            ext: '.js'
         }
     },
 
@@ -88,8 +94,8 @@ module.exports = function (grunt) {
                 compress: true
             },
 
-            src: "<%= config.app %>/css/style.less",
-            dest: "<%= config.dist %>/css/style.css"
+            src: '<%= config.app %>/css/style.less',
+            dest: '<%= config.dist %>/css/style.css'
         }
     },
 
@@ -272,6 +278,7 @@ module.exports = function (grunt) {
             'styles/{,*/}*.css',
             'styles/fonts/{,*/}*.*',
             '_locales/{,*/}*.json',
+            'vendor/{,*/}*.*',
           ]
         }]
       }

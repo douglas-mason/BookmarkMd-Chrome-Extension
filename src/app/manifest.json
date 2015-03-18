@@ -1,16 +1,16 @@
 {
-  "name": "__MSG_appName__",
-  "version": "0.0.1",
+  "name": "MarkIt",
+  "version": "0.0.30",
   "manifest_version": 2,
-  "description": "__MSG_appDescription__",
+  "description": "MarkIt bookmarking",
   "icons": {
-      "16": "images/icon-16.png",
-      "128": "images/icon-128.png"
+    "16": "images/icon-16.png",
+    "128": "images/icon-128.png"
   },
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/lib/dropbox.min.js",
+      "vendor/dropbox/dropbox.min.js",
       "scripts/app.js",
       "scripts/dropbox-client.js",
       "scripts/chromereload.js",
@@ -34,5 +34,6 @@
   ],
   "options_page": "options.html",
   "web_accessible_resources": [
-      "chrome_oauth_receiver.html"
+    "chrome_oauth_receiver.html"
+  ]
 }
