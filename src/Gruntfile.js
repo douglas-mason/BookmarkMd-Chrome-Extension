@@ -339,7 +339,7 @@ module.exports = function (grunt) {
       'concurrent:chrome',
       'connect:chrome',
       'less:dist',
-      'coffee:dev',
+      'coffee',
       'watch'
     ]);
   });

@@ -1,6 +1,6 @@
 {
   "name": "MarkIt",
-  "version": "0.0.30",
+  "version": "0.0.60",
   "manifest_version": 2,
   "description": "MarkIt bookmarking",
   "icons": {
@@ -11,10 +11,8 @@
   "background": {
     "scripts": [
       "vendor/dropbox/dropbox.min.js",
-      "scripts/app.js",
-      "scripts/dropbox-client.js",
       "scripts/chromereload.js",
-      "scripts/background.js"
+      "coffee/background_script.js"
     ]
   },
   "browser_action": {

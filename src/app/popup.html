@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <!-- build:css styles/vendor.css -->
-        <link href="./bower_components/materialize/dist/css/materialize.css" rel="stylesheet">
+    <link href="./bower_components/materialize/dist/css/materialize.css" 
+        rel="stylesheet">
     <!-- endbuild -->
     <!-- build:css styles/style.css -->
         <link href="./styles/main.css" rel="stylesheet">
@@ -23,13 +24,13 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="txtTitle" maxlength="50" type="text">
-                        <label for="txtTitle">Title</label>
+                        <label class="active" for="txtTitle">Title</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="txtUrl" maxlength="200" type="text">
-                        <label for="txtUrl">URL</label>
+                        <label class="active" for="txtUrl">URL</label>
                     </div>
                 </div>
                 <div class="row">
@@ -47,7 +48,8 @@
             </div>
             <div class="row">
                 <div class="col s12">
-                    <button id="btnSave" class="waves-effect waves-light btn blue accent-2" 
+                    <button id="btnSave" 
+                        class="waves-effect waves-light btn blue accent-2" 
                         data-saving-text="Saving..." data-complete-text="Done" 
                         autocomplete="off">Save Bookmark
                     </button>
@@ -59,7 +61,8 @@
             </div>
 	</div>
 	<div id="footer-container">
-            <div id="alert-container" class="alert alert-danger alert-dismissable hide" role="alert">
+            <div id="alert-container" 
+                class="alert alert-danger alert-dismissable hide" role="alert">
                 <button id="btnCloseAlert" type="button" class="close">
                     <span aria-hidden="true">&times;</span>
                     <span class="sr-only">Close</span>
@@ -72,6 +75,7 @@
     <!-- build:js scripts/vendor.js -->
         <script src="./bower_components/jquery/dist/jquery.js"></script>
 	<script src="./vendor/dropbox/dropbox.min.js"></script>
+        <script src="./bower_components/materialize/dist/js/materialize.js"></script>
     <!-- endbuild -->
 
     <!-- build:js(dist) scripts/popup.js -->
