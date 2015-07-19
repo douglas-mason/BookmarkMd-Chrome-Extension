@@ -78,7 +78,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= config.app %>/coffee',
             src: '**/*.coffee',
-            dest: '<%= config.dist %>/scripts',
+            dest: '<%= config.app %>/scripts',
             ext: '.js'
         }
     },
@@ -279,6 +279,7 @@ module.exports = function (grunt) {
             'styles/fonts/{,*/}*.*',
             '_locales/{,*/}*.json',
             'vendor/{,*/}*.*',
+            'scripts/{,*/}*.js'
           ]
         }]
       }
@@ -340,6 +341,7 @@ module.exports = function (grunt) {
       'connect:chrome',
       'less:dist',
       'coffee',
+      'copy',
       'watch'
     ]);
   });

@@ -17,11 +17,14 @@ class Popup
       $('#txtUrl').val(tabs[0].url) #url
       $('#txtTitle').val(tabs[0].title) #title
 
-    $('#btnSave').click =>
+    $('#btnSave').off "click"
+    $('#btnCloseAlert').off "click"
+
+    $('#btnSave').on "click",  =>
       # $('#btnSave').button('saving')
       @readBookmarkFile(@folderName, @fileName)
 
-    $('#btnCloseAlert').click ->
+    $('#btnCloseAlert').on "click", ->
       $('#alert-container').addClass('hide')
 
     chrome.runtime.getBackgroundPage (backgroundWindow) =>
@@ -59,26 +62,25 @@ class Popup
   readBookmarkFile: (folderName, fileName) ->
     doesCategoryOverrideExist = $('#txtCategory').val() isnt undefined and
     $('#txtCategory').val().length > 0
-    folderItems = @getDirectoryContents(folderName)
     newBookmark = @formatAsMarkdown($('#txtTitle').val(),
     $('#txtTags').val(), $('#txtUrl').val())
 
     if (doesCategoryOverrideExist)
       fileName = @getCategoryFileNameOverride($('#txtCategory').val())
 
-    if ($.inArray(fileName, folderItems) > -1)
-      @addToExistingFile(fileName, folderName, newBookmark)
-    else
-      @addNewFile(fileName, folderName, newBookmark)
-    window.close()
+    @processEntry(fileName, folderName, newBookmark)
 
-
-  getDirectoryContents: (folderName) ->
+  processEntry: (fileName, folderName, bookmark) ->
     client = @dbclient
     client.readdir folderName, (error, entries) =>
       if (error)
         return @showError(error); # Something went wrong.
-      return entries
+
+      if ($.inArray(fileName, entries) > -1)
+        @addToExistingFile(fileName, folderName, bookmark)
+      else
+        @addNewFile(fileName, folderName, bookmark)
+      window.close()
 
   addToExistingFile: (fileName, folderName, newBookmark) ->
     newFileData = ''
