@@ -17,23 +17,6 @@
       this.folderName = (config != null ? config.folderName : void 0) || '/BookmarkMd';
       this.fileName = (config != null ? config.fileName : void 0) || 'bookmarks.md';
       this.dbclient = config != null ? config.client : void 0;
-      chrome.tabs.query({
-        active: true,
-        currentWindow: true
-      }, function(tabs) {
-        $('#txtUrl').val(tabs[0].url);
-        return $('#txtTitle').val(tabs[0].title);
-      });
-      $('#btnSave').off("click");
-      $('#btnCloseAlert').off("click");
-      $('#btnSave').on("click", (function(_this) {
-        return function() {
-          return _this.readBookmarkFile(_this.folderName, _this.fileName);
-        };
-      })(this));
-      $('#btnCloseAlert').on("click", function() {
-        return $('#alert-container').addClass('hide');
-      });
       return chrome.runtime.getBackgroundPage((function(_this) {
         return function(backgroundWindow) {
           var client;
@@ -56,8 +39,7 @@
 
     Popup.prototype.showError = function(error) {
       console.log("Error: " + error);
-      $('#errorMessage').text(error);
-      return $('#alert-container').removeClass('hide');
+      return toast("An error has occured.  Item not saved.", 4000);
     };
 
     Popup.prototype.formatAsMarkdown = function(title, tags, url) {
@@ -76,14 +58,14 @@
       return category.trim() + '.md';
     };
 
-    Popup.prototype.readBookmarkFile = function(folderName, fileName) {
+    Popup.prototype.readBookmarkFile = function() {
       var doesCategoryOverrideExist, newBookmark;
       doesCategoryOverrideExist = $('#txtCategory').val() !== void 0 && $('#txtCategory').val().length > 0;
       newBookmark = this.formatAsMarkdown($('#txtTitle').val(), $('#txtTags').val(), $('#txtUrl').val());
       if (doesCategoryOverrideExist) {
-        fileName = this.getCategoryFileNameOverride($('#txtCategory').val());
+        this.fileName = this.getCategoryFileNameOverride($('#txtCategory').val());
       }
-      return this.processEntry(fileName, folderName, newBookmark);
+      return this.processEntry(this.fileName, this.folderName, newBookmark);
     };
 
     Popup.prototype.processEntry = function(fileName, folderName, bookmark) {
@@ -145,5 +127,19 @@
   })();
 
   popup = new Popup();
+
+  $(".button-collapse").sideNav();
+
+  chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function(tabs) {
+    $('#txtUrl').val(tabs[0].url);
+    return $('#txtTitle').val(tabs[0].title);
+  });
+
+  $('#btnSave').on("click", function() {
+    return popup.readBookmarkFile();
+  });
 
 }).call(this);

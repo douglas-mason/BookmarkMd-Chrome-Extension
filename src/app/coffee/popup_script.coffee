@@ -1,6 +1,4 @@
 class Popup
-#'use strict'
-
   constructor: ->
     @initialize?()
 
@@ -12,20 +10,23 @@ class Popup
     @folderName = config?.folderName || '/BookmarkMd'
     @fileName = config?.fileName || 'bookmarks.md'
     @dbclient = config?.client
-    chrome.tabs.query {active: true,currentWindow: true},
-    (tabs) ->
-      $('#txtUrl').val(tabs[0].url) #url
-      $('#txtTitle').val(tabs[0].title) #title
 
-    $('#btnSave').off "click"
-    $('#btnCloseAlert').off "click"
+    # #side bar nav
+    # $(".button-collapse").sideNav()
 
-    $('#btnSave').on "click",  =>
-      # $('#btnSave').button('saving')
-      @readBookmarkFile(@folderName, @fileName)
+    # chrome.tabs.query {active: true,currentWindow: true},
+    # (tabs) ->
+    #   $('#txtUrl').val(tabs[0].url) #url
+    #   $('#txtTitle').val(tabs[0].title) #title
 
-    $('#btnCloseAlert').on "click", ->
-      $('#alert-container').addClass('hide')
+    # $('#btnSave').off "click"
+    # $('#btnCloseAlert').off "click"
+
+    # $('#btnSave').on "click",  =>
+    #   @readBookmarkFile(@folderName, @fileName)
+
+    # $('#btnCloseAlert').on "click", ->
+    #   $('#alert-container').addClass('hide')
 
     chrome.runtime.getBackgroundPage (backgroundWindow) =>
       client = backgroundWindow.client
@@ -38,15 +39,10 @@ class Popup
         client.authenticate (error, client) =>
           if(error)
             return @showError(error)
-    # $(->
-    #   $('[data-toggle="popover"]').popover()
-    # )
 
   showError: (error) ->
-    console.log("Error: " + error)
-    # $('#btnSave').button('reset')
-    $('#errorMessage').text(error)
-    $('#alert-container').removeClass('hide')
+    console.log "Error: #{error}"
+    toast "An error has occured.  Item not saved.", 4000
 
   formatAsMarkdown: (title, tags, url) ->
     if (tags isnt undefined and tags.length > 0)
@@ -59,22 +55,22 @@ class Popup
   getCategoryFileNameOverride: (category) ->
     return category.trim() + '.md'
 
-  readBookmarkFile: (folderName, fileName) ->
+  readBookmarkFile: () ->
     doesCategoryOverrideExist = $('#txtCategory').val() isnt undefined and
     $('#txtCategory').val().length > 0
     newBookmark = @formatAsMarkdown($('#txtTitle').val(),
     $('#txtTags').val(), $('#txtUrl').val())
 
     if (doesCategoryOverrideExist)
-      fileName = @getCategoryFileNameOverride($('#txtCategory').val())
+      @fileName = @getCategoryFileNameOverride($('#txtCategory').val())
 
-    @processEntry(fileName, folderName, newBookmark)
+    @processEntry(@fileName, @folderName, newBookmark)
 
   processEntry: (fileName, folderName, bookmark) ->
     client = @dbclient
     client.readdir folderName, (error, entries) =>
       if (error)
-        return @showError(error); # Something went wrong.
+        return @showError(error)
 
       if ($.inArray(fileName, entries) > -1)
         @addToExistingFile(fileName, folderName, bookmark)
@@ -87,17 +83,14 @@ class Popup
     client = @dbclient
     client.readFile (folderName + '/' + fileName), (error, data) =>
       if (error)
-        return @showError(error); # Something went wrong.
+        return @showError(error)
       newFileData = data + newBookmark
       client.writeFile (folderName + '/' + fileName),
       newFileData,
       (error, stat) =>
         if (error)
-          return @showError(error); # Something went wrong.
-        #todo: DRY this
+          return @showError(error)
         console.log('File saved as revision ' + stat.versionTag)
-        # $('#btnSave').button('reset')
-        # window.close()
 
   addNewFile: (fileName, folderName, newBookmark) ->
     newFileData = ''
@@ -109,9 +102,23 @@ class Popup
     newFileData,
     (error, stat) =>
       if (error)
-        return @showError(error); # Something went wrong.
+        return @showError(error)
       console.log('File saved as revision ' + stat.versionTag)
-      # $('#btnSave').button('reset')
 
 
+#Main script
 popup = new Popup()
+
+#side bar nav
+$(".button-collapse").sideNav()
+
+chrome.tabs.query {active: true,currentWindow: true},
+(tabs) ->
+  $('#txtUrl').val(tabs[0].url) #url
+  $('#txtTitle').val(tabs[0].title) #title
+
+# $('#btnSave').off "click"
+# $('#btnCloseAlert').off "click"
+
+$('#btnSave').on "click",  ->
+  popup.readBookmarkFile()
