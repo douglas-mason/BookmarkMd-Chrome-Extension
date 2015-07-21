@@ -7,26 +7,9 @@ class Popup
     @fileName = ""
     @dbclient = {}
 
-    @folderName = config?.folderName || '/BookmarkMd'
+    @folderName = config?.folderName || '/Bookmark'
     @fileName = config?.fileName || 'bookmarks.md'
     @dbclient = config?.client
-
-    # #side bar nav
-    # $(".button-collapse").sideNav()
-
-    # chrome.tabs.query {active: true,currentWindow: true},
-    # (tabs) ->
-    #   $('#txtUrl').val(tabs[0].url) #url
-    #   $('#txtTitle').val(tabs[0].title) #title
-
-    # $('#btnSave').off "click"
-    # $('#btnCloseAlert').off "click"
-
-    # $('#btnSave').on "click",  =>
-    #   @readBookmarkFile(@folderName, @fileName)
-
-    # $('#btnCloseAlert').on "click", ->
-    #   $('#alert-container').addClass('hide')
 
     chrome.runtime.getBackgroundPage (backgroundWindow) =>
       client = backgroundWindow.client
@@ -105,20 +88,18 @@ class Popup
         return @showError(error)
       console.log('File saved as revision ' + stat.versionTag)
 
-
 #Main script
 popup = new Popup()
-
-#side bar nav
-$(".button-collapse").sideNav()
+nav = new Nav(popup.folderName, popup.dbclient)
 
 chrome.tabs.query {active: true,currentWindow: true},
 (tabs) ->
   $('#txtUrl').val(tabs[0].url) #url
   $('#txtTitle').val(tabs[0].title) #title
 
-# $('#btnSave').off "click"
-# $('#btnCloseAlert').off "click"
-
 $('#btnSave').on "click",  ->
   popup.readBookmarkFile()
+
+nav.renderNavigation()
+#side bar nav
+$(".button-collapse").sideNav()
