@@ -66,6 +66,10 @@ module.exports = function (grunt) {
           files: '<%= config.app %>/coffee/**/*.coffee',
           tasks: ['coffee']
       },
+      react: {
+          files: '<%= config.app %>/jsx/**/*.jsx',
+          tasks: ['react']
+      },
       less: {
           files: '<%= config.app %>/styles/**/*.less',
           tasks: ['less']
@@ -80,7 +84,25 @@ module.exports = function (grunt) {
             src: '**/*.coffee',
             dest: '<%= config.app %>/scripts',
             ext: '.js'
+        },
+        'jsx': {
+            expand: true,
+            cwd: '<%= config.app %>/coffee/jsx',
+            src: '**/*.coffee',
+            dest: '<%= config.app %>/jsx',
+            ext: '.jsx'
         }
+    },
+
+    // transform JSX
+    react: {
+      files: {
+        expand: true,
+        cwd: '<%= config.app %>/jsx',
+        src: ['**/*.jsx'],
+        dest: '<%= config.app %>/scripts',
+        ext: '.js'
+      } 
     },
 
     // compile LESS files
@@ -340,7 +362,9 @@ module.exports = function (grunt) {
       'concurrent:chrome',
       'connect:chrome',
       'less:dist',
+      'coffee:jsx',
       'coffee',
+      'react',
       'copy',
       'watch'
     ]);
@@ -353,11 +377,13 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'coffee:jsx',
+    'coffee',
+    'react',
     'chromeManifest:dist',
     'useminPrepare',
     'concurrent:dist',
     'less:dist',
-    'coffee',
     'cssmin',
     'concat',
     'uglify',

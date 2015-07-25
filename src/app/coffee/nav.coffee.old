@@ -20,7 +20,7 @@ class Nav
             }
         });
         this.setState({data: categories});
-        }
+        })
       },
       getInitialState: function() {
         return {data: []};
@@ -67,9 +67,8 @@ class Nav
     React.render(
       <NavBar title="Super Duper" data={categories}/>,
       document.getElementById("nav-container")
-      );
-    })`
-
+      );`
+    return true
   # populateCategories: ->
   #   @dbclient.readdir folderName, (error, entries) =>
   #     if (error)

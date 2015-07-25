@@ -1,5 +1,5 @@
 (function() {
-  var Popup, popup,
+  var Popup, nav, popup,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Popup = (function() {
@@ -14,7 +14,7 @@
       this.folderName = "";
       this.fileName = "";
       this.dbclient = {};
-      this.folderName = (config != null ? config.folderName : void 0) || '/BookmarkMd';
+      this.folderName = (config != null ? config.folderName : void 0) || '/Bookmark';
       this.fileName = (config != null ? config.fileName : void 0) || 'bookmarks.md';
       this.dbclient = config != null ? config.client : void 0;
       return chrome.runtime.getBackgroundPage((function(_this) {
@@ -128,7 +128,7 @@
 
   popup = new Popup();
 
-  $(".button-collapse").sideNav();
+  nav = new Nav(popup.folderName, popup.dbclient);
 
   chrome.tabs.query({
     active: true,
@@ -141,5 +141,9 @@
   $('#btnSave').on("click", function() {
     return popup.readBookmarkFile();
   });
+
+  nav.renderNavigation();
+
+  $(".button-collapse").sideNav();
 
 }).call(this);
