@@ -1,18 +1,26 @@
 (function() {
-  var Nav;
+  window.Nav = (function() {
+    function Nav(baseFolderName) {
+      this.client = {};
+      chrome.runtime.getBackgroundPage((function(_this) {
+        return function(backgroundWindow) {
+          _this.client = backgroundWindow.client;
+          _this.baseFolderName = baseFolderName;
+          return _this.renderNavigation();
+        };
+      })(this));
+    }
 
-  Nav = (function() {
-    function Nav(baseFolderName, client) {}
-
-    Nav.prototype.renderNavigation = function(categories) {
-      var NavBar = React.createClass({
+    Nav.prototype.renderNavigation = function() {
+      var self = this;
+    var NavBar = React.createClass({displayName: "NavBar",
       populateCategories: function(){
-        var folderName = this.baseFolderName;
-        this.client.readdir(folderName, function (error, entries){
+        var folderName = self.baseFolderName;
+        var categories = [];
+        self.client.readdir(folderName, function (error, entries){
           if (error){
-            return this.showError(error);
+            //return this.showError(error);
           }
-          var categories = [];
           _.forEach(entries, function (item){
             if (item.search(/^(.*\.(md)$)/i) != -1){
               var category = {
@@ -33,42 +41,42 @@
       },
       render: function(){
         return (
-          <nav id="nav" className="navBar">
-            <div className="nav-wrapper">
-              <div className="col s12">
-              <a className="brand-logo">{this.props.title}</a>
-                <NavItemList data={this.state.data}/>
-                <a href="#" data-activates="slide-out"
-                  className="button-collapse">
-                  <i className="mdi-navigation-menu"></i>
-                </a>
-              </div>
-            </div>
-          </nav>
+          React.createElement("nav", {id: "nav", className: "navBar"}, 
+            React.createElement("div", {className: "nav-wrapper"}, 
+              React.createElement("div", {className: "col s12"}, 
+              React.createElement("a", {className: "brand-logo"}, this.props.title), 
+                React.createElement(NavItemList, {data: this.state.data}), 
+                React.createElement("a", {href: "#", "data-activates": "slide-out", 
+                  className: "button-collapse"}, 
+                  React.createElement("i", {className: "mdi-navigation-menu"})
+                )
+              )
+            )
+          )
           );
         }
       });
           
-    var NavItemList = React.createClass({
+    var NavItemList = React.createClass({displayName: "NavItemList",
       render: function(){
         var navItems = this.props.data.map(function (item){
-            return <li key={item.id}><a href="#">{item.title}</a></li>
+            return React.createElement("li", {key: item.id}, React.createElement("a", {href: "#"}, item.title))
         });
         return (
-          <div>
-          <ul className="right hide-on-med-and-down">
-            {navItems}
-          </ul>
-          <ul id="slide-out" className="side-nav">
-            {navItems}
-          </ul>
-          </div>
+          React.createElement("div", null, 
+          React.createElement("ul", {className: "right hide-on-med-and-down"}, 
+            navItems
+          ), 
+          React.createElement("ul", {id: "slide-out", className: "side-nav"}, 
+            navItems
+          )
+          )
           );
         }
       });
           
     React.render(
-      <NavBar title="Super Duper" data={categories}/>,
+      React.createElement(NavBar, {title: "MarkIt"}),
       document.getElementById("nav-container")
       );;
       return true;

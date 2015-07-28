@@ -1,8 +1,8 @@
 (function() {
-  var Popup, nav, popup,
+  var nav, popup,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  Popup = (function() {
+  window.Popup = (function() {
     function Popup() {
       this.initialize = __bind(this.initialize, this);
       if (typeof this.initialize === "function") {
@@ -126,9 +126,9 @@
 
   })();
 
-  popup = new Popup();
+  popup = new window.Popup();
 
-  nav = new Nav(popup.folderName, popup.dbclient);
+  nav = new window.Nav(popup.folderName);
 
   chrome.tabs.query({
     active: true,
@@ -141,8 +141,6 @@
   $('#btnSave').on("click", function() {
     return popup.readBookmarkFile();
   });
-
-  nav.renderNavigation();
 
   $(".button-collapse").sideNav();
 

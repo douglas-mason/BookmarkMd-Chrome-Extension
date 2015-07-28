@@ -1,4 +1,4 @@
-class Popup
+class window.Popup
   constructor: ->
     @initialize?()
 
@@ -89,8 +89,8 @@ class Popup
       console.log('File saved as revision ' + stat.versionTag)
 
 #Main script
-popup = new Popup()
-nav = new Nav(popup.folderName, popup.dbclient)
+popup = new window.Popup()
+nav = new window.Nav(popup.folderName)
 
 chrome.tabs.query {active: true,currentWindow: true},
 (tabs) ->
@@ -100,6 +100,5 @@ chrome.tabs.query {active: true,currentWindow: true},
 $('#btnSave').on "click",  ->
   popup.readBookmarkFile()
 
-nav.renderNavigation()
 #side bar nav
 $(".button-collapse").sideNav()

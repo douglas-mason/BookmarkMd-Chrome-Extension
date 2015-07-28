@@ -1,13 +1,18 @@
-class window.Nav
-  constructor: (baseFolderName)->
-    @client = {}
-    chrome.runtime.getBackgroundPage (backgroundWindow) =>
-      @client = backgroundWindow.client
-      @baseFolderName = baseFolderName
-      @renderNavigation()
+(function() {
+  window.Nav = (function() {
+    function Nav(baseFolderName) {
+      this.client = {};
+      chrome.runtime.getBackgroundPage((function(_this) {
+        return function(backgroundWindow) {
+          _this.client = backgroundWindow.client;
+          _this.baseFolderName = baseFolderName;
+          return _this.renderNavigation();
+        };
+      })(this));
+    }
 
-  renderNavigation: ->
-    `var self = this;
+    Nav.prototype.renderNavigation = function() {
+      var self = this;
     var NavBar = React.createClass({
       populateCategories: function(){
         var folderName = self.baseFolderName;
@@ -73,5 +78,12 @@ class window.Nav
     React.render(
       <NavBar title="MarkIt"/>,
       document.getElementById("nav-container")
-      );`
-    return true
+      );;
+      return true;
+    };
+
+    return Nav;
+
+  })();
+
+}).call(this);
